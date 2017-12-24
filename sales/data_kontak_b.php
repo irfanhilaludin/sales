@@ -59,10 +59,11 @@ Sampai:<input id="tanggal_input_sampai" class="date-picker" required="required" 
 //echo "this is your ID >>> " . $_SESSION['user'];
 //$user_query = mysql_query("select * from tb_user where id_user = '$user_id'")or die(mysql_error());
         //$row_user = mysql_fetch_array($user_query);
+
 		if(($tanggal_input_awal=='') AND ($tanggal_input_sampai=='')){
 			$kontak_query = mysql_query("select * from tb_kontak_all where id_user = '" . $_SESSION['user'] . "' and status_kontak = 'belum dihubungi'")or die(mysql_error());
 		}else{
-			$kontak_query = mysql_query("select * from tb_kontak_all where id_user = '".$_SESSION['user']."'  AND DATE_FORMAT(tanggal_kontak,'%m/%d/%Y')  BETWEEN '$tanggal_input_awal' AND '$tanggal_input_sampai' AND status_kontak ='belum dihubungi  ' ")or die(mysql_error());
+			$kontak_query = mysql_query("select * from tb_kontak_all where id_user = '".$_SESSION['user']."'  AND DATE_FORMAT(tanggal_kontak,'%m/%d/%Y') BETWEEN '$tanggal_input_awal' AND '$tanggal_input_sampai' AND status_kontak ='belum dihubungi  ' ")or die(mysql_error());
 		}
 		
         while($row = mysql_fetch_array($kontak_query)){
