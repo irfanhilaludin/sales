@@ -58,6 +58,8 @@ Sampai:<input id="tanggal_input_sampai" class="date-picker" required="required" 
     <!-----------------------------------Content------------------------------------>
     <?php
 
+    // print_r($_SESSION['user']); return;
+
 		if(($tanggal_input_awal=='') AND ($tanggal_input_sampai=='')){
 			$kontak_query = mysql_query("select * from tb_kontak_all where id_user = '" . $_SESSION['user'] . "' and status_kontak = 'belum dihubungi'")or die(mysql_error());
 		}else{
