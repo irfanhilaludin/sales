@@ -1,8 +1,8 @@
 <?php
 //core
 function dbcon(){
-	$user = "root";
-	$pass = "";
+	$user = "sbc";
+	$pass = "qwpo";
 	$host = "localhost";
 	$db = "db_suplier";
 	mysql_connect($host,$user,$pass);

@@ -5,9 +5,14 @@
     <div class="clearfix"></div>
     </div>
     <div class="x_content">   
-         <?php
-$tanggal_input_awal = $_POST["tanggal_input_awal"];
-$tanggal_input_sampai = $_POST["tanggal_input_sampai"];
+<?php
+if (isset($_POST)) {
+  $tanggal_input_awal = $_POST["tanggal_input_awal"];
+  $tanggal_input_sampai = $_POST["tanggal_input_sampai"];
+} else {
+  $tanggal_input_awal = '';
+  $tanggal_input_sampai = '';
+}
     ?> 
 <p class="text-muted font-13 m-b-30">
 <div class="btn-group">
@@ -52,37 +57,30 @@ Sampai:<input id="tanggal_input_sampai" class="date-picker" required="required" 
     <tbody>
     <!-----------------------------------Content------------------------------------>
     <?php
-	
-	
-	
-//$user_id=$_SESSION['user'];
-//echo "this is your ID >>> " . $_SESSION['user'];
-//$user_query = mysql_query("select * from tb_user where id_user = '$user_id'")or die(mysql_error());
-        //$row_user = mysql_fetch_array($user_query);
 
 		if(($tanggal_input_awal=='') AND ($tanggal_input_sampai=='')){
 			$kontak_query = mysql_query("select * from tb_kontak_all where id_user = '" . $_SESSION['user'] . "' and status_kontak = 'belum dihubungi'")or die(mysql_error());
 		}else{
-			$kontak_query = mysql_query("select * from tb_kontak_all where id_user = '".$_SESSION['user']."'  AND DATE_FORMAT(tanggal_kontak,'%m/%d/%Y') BETWEEN '$tanggal_input_awal' AND '$tanggal_input_sampai' AND status_kontak ='belum dihubungi  ' ")or die(mysql_error());
+			$kontak_query = mysql_query("select * from tb_kontak_all where id_user = '".$_SESSION['user']."'  AND DATE_FORMAT(tanggal_kontak,'%m/%d/%Y') BETWEEN '$tanggal_input_awal' AND '$tanggal_input_sampai' AND status_kontak = 'belum dihubungi' ")or die(mysql_error());
 		}
 		
-        while($row = mysql_fetch_array($kontak_query)){
-    ?>
-    <tr>
-    <td><?php echo $row['nama_kontak']; ?></td>
-    <td><?php echo $row['alamat_kontak']; ?></td>
-    <td><?php echo $row['kota_kontak']; ?></td>
-   <td><?php echo $row['provinsi_kontak']; ?></td>
+    while($row = mysql_fetch_array($kontak_query)){
+      ?>
+      <tr>
+      <td><?php echo $row['nama_kontak']; ?></td>
+      <td><?php echo $row['alamat_kontak']; ?></td>
+      <td><?php echo $row['kota_kontak']; ?></td>
+     <td><?php echo $row['provinsi_kontak']; ?></td>
 
 
-    <td><?php echo $row['telepon_kontak']; ?></td>
-     <td><?php echo $row['email_kontak']; ?></td>
-    <td><?php echo $row['cp_kontak']; ?></td>
-  
-    <td>
-    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#telepon<?php echo $row['id_kontak']; ?>" ><i class="fa fa-phone">Telpon</i> </a>
-    </td>		
-    </tr>
+      <td><?php echo $row['telepon_kontak']; ?></td>
+       <td><?php echo $row['email_kontak']; ?></td>
+      <td><?php echo $row['cp_kontak']; ?></td>
+    
+      <td>
+      <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#telepon<?php echo $row['id_kontak']; ?>" ><i class="fa fa-phone">Telpon</i> </a>
+      </td>		
+      </tr>
     
   <!--MOdalll awallll  -->   
 <div class="modal fade" id="telepon<?php echo $row['id_kontak']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
@@ -239,20 +237,10 @@ Keterangan :
   
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <?php 
     
     }?>  
+
     </tbody>
     </table>
    
